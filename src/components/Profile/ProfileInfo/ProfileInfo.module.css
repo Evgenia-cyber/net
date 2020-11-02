@@ -1,0 +1,12 @@
+.info {
+   flex: 1 1 100%;
+   display: flex;
+   padding: 25px;
+ }
+ .infoImg img {
+   max-width: 250px;
+   border: 1px solid rgb(168, 168, 168);
+ }
+ .infoText {
+   margin-left: 50px;
+ }

@@ -1,0 +1,19 @@
+.nav {
+   grid-area: nav;
+   background: red;
+ }
+ ul{
+   list-style: none;
+   margin: 40px 0;
+ }
+ li{
+  margin-top: 20px;
+ }
+ ul li a{
+   text-decoration: none;
+   color: #000;
+ }
+ ul li a:hover,
+ ul li a.activeLink{
+   text-decoration: underline;
+ }

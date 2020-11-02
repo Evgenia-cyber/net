@@ -1,0 +1,30 @@
+.my_posts {
+   flex: 1 1 100%;
+   display: flex;
+   flex-direction: column;
+ }
+ .my_posts h3{
+   margin: 20px;
+ }
+ .new_post {
+   margin: 20px;
+   flex: 1 1 100%;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+ }
+ .send_text {
+   box-sizing: border-box;
+   flex: 1 1 70%;
+ }
+ .send_btn {
+   flex: 0 1 20%;
+ }
+ /*************/
+ .posts {
+   padding: 10px;
+   display: flex;
+   flex-wrap: wrap;
+ }
+
+ 

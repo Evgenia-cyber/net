@@ -1,0 +1,25 @@
+.post {
+  flex: 1 1 100%;
+  display: flex;
+  border: 1px solid rgb(168, 168, 168);
+  margin: 10px;
+  background: rgb(253, 252, 154);
+}
+.post_avatar {
+  flex: 0 1 10%;
+}
+.post_avatar img{
+  width: 75px;
+  height: 75px;
+  border: 1px solid rgb(168, 168, 168);
+  margin: 5px;
+  object-fit: cover;
+}
+.post_text {
+  flex: 1 1 80%;
+  padding-left: 15px;
+}
+.post span{
+  margin: 0 0.5rem 0 0;
+}
+ 

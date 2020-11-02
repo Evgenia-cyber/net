@@ -1,0 +1,10 @@
+.mainImg {
+  display: flex;
+  flex: 1 1 100%;
+}
+.mainImg img {
+  flex: 1 1 100%;
+  object-fit: cover;
+  max-height: 300px;
+}
+
