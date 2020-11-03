@@ -20,12 +20,15 @@ const messagesReducer = (state = initialState, action) => {
         id: 4,
         text: state.newTextareaText,
       };
-      state.messages.push(newText);
-      state.newTextareaText = "";
-      return state;
+      let stateCopy = {...state};
+      stateCopy.messages = [...state.messages];
+      stateCopy.messages.push(newText);
+      stateCopy.newTextareaText = "";
+      return stateCopy;
     case UPDATE_MESSAGE_TEXT:
-      state.newTextareaText = action.newText;
-      return state;
+      let stateCopy2={...state};
+      stateCopy2.newTextareaText = action.newText;
+      return stateCopy2;
     default:
       return state;
   }

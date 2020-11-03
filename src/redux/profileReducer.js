@@ -6,8 +6,7 @@ let initialState = {
     {
       id: 1,
       message: "Привет!",
-      img:
-        "https://avatarko.ru/img/kartinka/7/ruki_serdce_karandash_6297.jpg",
+      img: "https://avatarko.ru/img/kartinka/7/ruki_serdce_karandash_6297.jpg",
       likesCount: 10,
     },
     {
@@ -36,12 +35,15 @@ const profileReducer = (state = initialState, action) => {
         img: "https://bankoboev.ru/storage/avatar/bankoboev.ru-21052.jpg",
         likesCount: 0,
       };
-      state.posts.push(newPost);
-      state.newTextareaText = "";
-      return state;
+      let stateCopy = { ...state };
+      stateCopy.posts = [...state.posts];
+      stateCopy.posts.push(newPost);
+      stateCopy.newTextareaText = "";
+      return stateCopy;
     case UPDATE_TEXTAREA_TEXT:
-      state.newTextareaText = action.newText;
-      return state;
+      let stateCopy2 = { ...state };
+      stateCopy2.newTextareaText = action.newText;
+      return stateCopy2;
     default:
       return state;
   }
