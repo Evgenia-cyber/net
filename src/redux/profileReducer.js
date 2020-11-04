@@ -29,21 +29,22 @@ let initialState = {
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST:
-      let newPost = {
-        id: 4,
-        message: state.newTextareaText,
-        img: "https://bankoboev.ru/storage/avatar/bankoboev.ru-21052.jpg",
-        likesCount: 0,
+      let text = state.newTextareaText;
+      return {
+        ...state,
+        posts: [
+          ...state.posts,
+          {
+            id: 4,
+            message: text,
+            img: "https://bankoboev.ru/storage/avatar/bankoboev.ru-21052.jpg",
+            likesCount: 0,
+          },
+        ],
+        newTextareaText: "",
       };
-      let stateCopy = { ...state };
-      stateCopy.posts = [...state.posts];
-      stateCopy.posts.push(newPost);
-      stateCopy.newTextareaText = "";
-      return stateCopy;
     case UPDATE_TEXTAREA_TEXT:
-      let stateCopy2 = { ...state };
-      stateCopy2.newTextareaText = action.newText;
-      return stateCopy2;
+      return { ...state, newTextareaText: action.newText };
     default:
       return state;
   }

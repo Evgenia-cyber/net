@@ -33,7 +33,7 @@ const Messages = (props) => {
         </div>
       </div>
       <div>
-        <textarea
+        <textarea 
           value={props.newTextareaText}
           onChange={changeTextareaHandler}
           className={s.send_message}
