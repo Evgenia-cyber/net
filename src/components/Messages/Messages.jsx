@@ -5,10 +5,10 @@ import MessageUser from "./MessageUser/MessageUser";
 
 const Messages = (props) => {
   let usersElements = props.state.users.map((user) => (
-    <MessageUser userId={user.id} userName={user.name} />
+    <MessageUser key={user.id} userId={user.id} userName={user.name} />
   ));
   let messagesElements = props.state.messages.map((message) => (
-    <MessageText text={message.text} />
+    <MessageText key={message.id} text={message.text} />
   ));
 
   let changeTextareaHandler = (event) => {
