@@ -22,7 +22,7 @@ const messagesReducer = (state = initialState, action) => {
         messages: [
           ...state.messages,
           {
-            id: 4,
+            id: 4,  
             text: text,
           },
         ],

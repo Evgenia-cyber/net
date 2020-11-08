@@ -6,6 +6,7 @@ import Profile from "./components/Profile/Profile";
 import Sidebar from "./components/Sidebar/Sidebar";
 import News from "./components/News/News";
 import MessagesContainer from "./components/Messages/MessagesContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App = (props) => {
   return (
@@ -24,6 +25,10 @@ const App = (props) => {
           render={() => <MessagesContainer/>}
         />
         <Route path="/news" render={() => <News />} />
+        <Route
+          path="/users"
+          render={() => <UsersContainer/>}
+        />
       </div>
     </div>
   );
