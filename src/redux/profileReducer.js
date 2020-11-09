@@ -37,7 +37,7 @@ const profileReducer = (state = initialState, action) => {
           {
             id: 4,
             message: text,
-            img: "https://bankoboev.ru/storage/avatar/bankoboev.ru-21052.jpg",
+            img: "https://i.pinimg.com/originals/24/37/bd/2437bd9758a684862c11aa9e8f20341a.jpg",
             likesCount: 0,
           },
         ],

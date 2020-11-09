@@ -1,45 +1,15 @@
+import * as axios from "axios";
 import React from "react";
 import s from "./Users.module.css";
+import userImg from "../../assets/images/user.jpg";
 
 const Users = (props) => {
   if (props.users.length === 0) {
-    props.setUsers([
-      {
-        id: 1,
-        followed: true,
-        photoUrl: "https://bankoboev.ru/storage/avatar/bankoboev.ru-21052.jpg",
-        name: "Dima",
-        status: "I like football",
-        location: {
-          country: "Belarus",
-          city: "Minsk",
-        },
-      },
-      {
-        id: 2,
-        followed: false,
-        photoUrl:
-          "https://i.pinimg.com/originals/24/37/bd/2437bd9758a684862c11aa9e8f20341a.jpg",
-        name: "Sveta",
-        status: "I so pretty",
-        location: {
-          country: "Belarus",
-          city: "Minsk",
-        },
-      },
-      {
-        id: 3,
-        followed: true,
-        photoUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTDDGI9g7O_WOqcrjLIog-GN5SvGl14YUXlLQ&usqp=CAU",
-        name: "Stas",
-        status: "I like it",
-        location: {
-          country: "Belarus",
-          city: "Minsk",
-        },
-      },
-    ]);
+    axios
+      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .then((response) => {
+        props.setUsers(response.data.items);
+      });
   }
 
   return (
@@ -48,7 +18,7 @@ const Users = (props) => {
         <div key={u.id} className={s.row + " " + s.border}>
           <div className={s.one}>
             <div className={s.img}>
-              <img src={u.photoUrl} alt="" className={s.border} />
+              <img src={u.photos.small ? u.photos.small: userImg} alt="" className={s.border} />
             </div>
             <div>
               {u.followed ? (
@@ -75,8 +45,8 @@ const Users = (props) => {
               <div className={s.row + " " + s.info}>
                 <div className={s.infoName}>{u.name}</div>
                 <div>
-                  <span>{u.location.country + " "}</span>
-                  <span>{u.location.city}</span>
+                  <span>{'u.location.country + " "'}</span>
+                  <span>{'u.location.city'}</span>
                 </div>
               </div>
               <div className={s.row + " " + s.infoStatus}>
