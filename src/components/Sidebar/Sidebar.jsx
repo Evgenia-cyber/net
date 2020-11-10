@@ -13,6 +13,9 @@ return (
        <NavLink to="/messages" activeClassName={s.activeLink}>Сообщения</NavLink>
      </li>
      <li>
+       <NavLink to="/users" activeClassName={s.activeLink}>Пользователи</NavLink>
+     </li>
+     <li>
        <NavLink to="/news" activeClassName={s.activeLink}>Новости</NavLink>
      </li>
      <li>
