@@ -47,17 +47,9 @@
 .pagination {
   margin: 1.6rem;
 }
-.pagination span {
-  padding: 0.1rem 0.4rem;
-  margin: 0.2rem 0;
-  border: 1px solid #000;
-}
-.pagination span:hover {
-  color: rgb(170, 73, 73);
-}
-.pagination span.selected {
-  box-sizing: border-box;
-  color: rgb(170, 73, 73);
+.pagination button {
   font-weight: 900;
-  border: 2px solid rgb(170, 73, 73);
+}
+.pagination button.selected {
+  color: rgb(204, 40, 40);
 }

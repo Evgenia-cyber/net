@@ -6,19 +6,57 @@ import userImg from "../../assets/images/user.jpg";
 class Users extends React.Component {
   componentDidMount() {
     axios
-      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countUsersPerPage}`
+      )
       .then((response) => {
         this.props.setUsers(response.data.items);
+        this.props.setTotalUsersCount(response.data.totalCount);
       });
   }
 
+  onPageChanged = (currentPage) => {
+    this.props.setCurrentPage(currentPage);
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.countUsersPerPage}`
+      )
+      .then((response) => {
+        this.props.setUsers(response.data.items);
+      });
+  };
+
   render() {
+    let pagesCount = Math.ceil(
+      this.props.totalCount / this.props.countUsersPerPage
+    );
+    let pages = [];
+    // for (let i = 0; i < pagesCount; i++) {
+      for (let i = 0; i < 28; i++) {//т.к. слишком много пользователей
+      pages[i] = i + 1;
+    }
+    // for (let i = 1; i <= pagesCount; i++) {
+    //   pages.push(i);
+    // }
+
     return (
       <div>
         <div className={s.pagination}>
-          <span>1</span>
-          <span className={s.selected}>2</span>
-          <span>3</span>
+          {pages.map((p) => {
+            return (
+              <button
+                onClick={() => {
+                  this.onPageChanged(p);
+                }}
+                key={p}
+                className={
+                  this.props.currentPage === p ? s.selected : undefined
+                }
+              >
+                {p}
+              </button>
+            );
+          })}
         </div>
         <div className={s.column + " " + s.container}>
           {this.props.users.map((u) => (
