@@ -5,18 +5,22 @@ import {
   setCurrentPageAC,
   setTotalUsersCountAC,
   setUsersAC,
+  togglePreloaderAC,
   unfollowAC,
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import * as axios from "axios";
+import Preloader from "../common/preloader/Preloader";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
+    this.props.togglePreloader(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countUsersPerPage}`
       )
       .then((response) => {
+        this.props.togglePreloader(false);
         this.props.setUsers(response.data.items);
         this.props.setTotalUsersCount(response.data.totalCount);
       });
@@ -24,17 +28,21 @@ class UsersContainer extends React.Component {
 
   onPageChanged = (currentPage) => {
     this.props.setCurrentPage(currentPage);
+    this.props.togglePreloader(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.countUsersPerPage}`
       )
       .then((response) => {
+        this.props.togglePreloader(false);
         this.props.setUsers(response.data.items);
       });
   };
 
   render() {
     return (
+      <>
+      {this.props.isFetching ? <Preloader/> : null}
       <Users
         onPageChanged={this.onPageChanged}
         totalCount={this.props.totalCount}
@@ -44,6 +52,7 @@ class UsersContainer extends React.Component {
         follow={this.props.follow}
         currentPage={this.props.currentPage}
       />
+      </>
     );
   }
 }
@@ -54,6 +63,7 @@ const mapStateToProps = (state) => {
     countUsersPerPage: state.usersPage.countUsersPerPage,
     totalCount: state.usersPage.totalCount,
     currentPage: state.usersPage.currentPage,
+    isFetching: state.usersPage.isFetching
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -72,6 +82,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setTotalUsersCount: (totalCount) => {
       dispatch(setTotalUsersCountAC(totalCount));
+    },
+    togglePreloader: (isFetching) => {
+      dispatch(togglePreloaderAC(isFetching));
     },
   };
 };
