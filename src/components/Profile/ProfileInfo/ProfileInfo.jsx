@@ -9,7 +9,7 @@ const ProfileInfo = (props) => {
          <div className={s.infoImg}>
            <img
             //  src="https://hypeava.ru/uploads/posts/2018-03/1521909692_4.jpg"
-            src={props.profile.photos.large}
+            src={props.profile.photos.large?props.profile.photos.large:"https://hypeava.ru/uploads/posts/2018-03/1521909692_4.jpg"}
              alt=""
            />
          </div>

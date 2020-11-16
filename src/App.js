@@ -16,19 +16,10 @@ const App = (props) => {
       <div className="content">
         {/* <Route path='/profile' component={Profile}/>
         <Route path='/messages' component={Messages}/> */}
-        <Route
-          path="/profile"
-          render={() => <ProfileContainer/>}
-        />
-        <Route
-          path="/messages"
-          render={() => <MessagesContainer/>}
-        />
+        <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+        <Route path="/messages" render={() => <MessagesContainer />} />
         <Route path="/news" render={() => <News />} />
-        <Route
-          path="/users"
-          render={() => <UsersContainer/>}
-        />
+        <Route path="/users" render={() => <UsersContainer />} />
       </div>
     </div>
   );
