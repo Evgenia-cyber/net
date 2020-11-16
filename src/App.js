@@ -2,11 +2,11 @@ import React from "react";
 import { Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
-import Profile from "./components/Profile/Profile";
 import Sidebar from "./components/Sidebar/Sidebar";
 import News from "./components/News/News";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const App = (props) => {
   return (
@@ -18,7 +18,7 @@ const App = (props) => {
         <Route path='/messages' component={Messages}/> */}
         <Route
           path="/profile"
-          render={() => <Profile/>}
+          render={() => <ProfileContainer/>}
         />
         <Route
           path="/messages"

@@ -1,5 +1,6 @@
-const ADD_POST = "ADD-POST";
-const UPDATE_TEXTAREA_TEXT = "UPDATE-TEXTAREA-TEXT";
+const ADD_POST = "ADD_POST";
+const UPDATE_TEXTAREA_TEXT = "UPDATE_TEXTAREA_TEXT";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 let initialState = {
   posts: [
@@ -24,6 +25,7 @@ let initialState = {
     },
   ],
   newTextareaText: "",
+  profile: null,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -37,7 +39,8 @@ const profileReducer = (state = initialState, action) => {
           {
             id: 4,
             message: text,
-            img: "https://i.pinimg.com/originals/24/37/bd/2437bd9758a684862c11aa9e8f20341a.jpg",
+            img:
+              "https://i.pinimg.com/originals/24/37/bd/2437bd9758a684862c11aa9e8f20341a.jpg",
             likesCount: 0,
           },
         ],
@@ -45,6 +48,8 @@ const profileReducer = (state = initialState, action) => {
       };
     case UPDATE_TEXTAREA_TEXT:
       return { ...state, newTextareaText: action.newText };
+    case SET_USER_PROFILE:
+      return { ...state, profile: action.profile };
     default:
       return state;
   }
@@ -54,6 +59,10 @@ export const addNewPostActionCreator = () => ({ type: ADD_POST });
 export const changeTextareaHandlerActionCreator = (text) => ({
   type: UPDATE_TEXTAREA_TEXT,
   newText: text,
+});
+export const setUserProfile = (profile) => ({
+  type: SET_USER_PROFILE,
+  profile,
 });
 
 export default profileReducer;

@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./Users.module.css";
 import userImg from "../../assets/images/user.jpg";
+import { NavLink } from "react-router-dom";
 
 const Users = (props) => {
   let pagesCount = Math.ceil(props.totalCount / props.countUsersPerPage);
@@ -36,17 +37,19 @@ const Users = (props) => {
           <div key={u.id} className={s.row + " " + s.border}>
             <div className={s.one}>
               <div className={s.img}>
-                <img
-                  src={u.photos.small ? u.photos.small : userImg}
-                  alt=""
-                  className={s.border}
-                />
+                <NavLink to={"/profile/" + u.id}>
+                  <img
+                    src={u.photos.small ? u.photos.small : userImg}
+                    alt=""
+                    className={s.border}
+                  />
+                </NavLink>
               </div>
               <div>
                 {u.followed ? (
                   <button
                     onClick={() => {
-                     props.unfollow(u.id);
+                      props.unfollow(u.id);
                     }}
                   >
                     Подписаться
