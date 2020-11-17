@@ -1,7 +1,15 @@
 .header {
    grid-area: header;
    background: green;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
  }
  .header img {
    max-width: 50px;
+ }
+ .loginBlock a,
+ .loginBlock div{
+color: #fff;
+padding-right: 1.5rem;
  }
