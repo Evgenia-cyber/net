@@ -9,35 +9,39 @@ import {
   unfollowAC as unfollow,
 } from "../../redux/usersReducer";
 import Users from "./Users";
-import * as axios from "axios";
 import Preloader from "../common/preloader/Preloader";
+import { usersAPI } from "../../api/api";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.togglePreloader(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countUsersPerPage}`,
-        { withCredentials: true }
-      )
-      .then((response) => {
+    // axios
+    //   .get(
+    //     `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countUsersPerPage}`,
+    //     { withCredentials: true }
+    //   )
+    usersAPI
+      .getUsers(this.props.currentPage, this.props.countUsersPerPage)
+      .then((data) => {
         this.props.togglePreloader(false);
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsersCount(response.data.totalCount);
+        this.props.setUsers(data.items);
+        this.props.setTotalUsersCount(data.totalCount);
       });
   }
 
   onPageChanged = (currentPage) => {
     this.props.setCurrentPage(currentPage);
     this.props.togglePreloader(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.countUsersPerPage}`,
-        { withCredentials: true }
-      )
-      .then((response) => {
+    // axios
+    //   .get(
+    //     `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.countUsersPerPage}`,
+    //     { withCredentials: true }
+    //   )
+    usersAPI
+      .getUsers(currentPage, this.props.countUsersPerPage)
+      .then((data) => {
         this.props.togglePreloader(false);
-        this.props.setUsers(response.data.items);
+        this.props.setUsers(data.items);
       });
   };
 
