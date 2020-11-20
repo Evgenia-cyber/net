@@ -8,6 +8,7 @@ import {
   togglePreloaderAC as togglePreloader,
   unfollowAC as unfollow,
 } from "../../redux/usersReducer";
+import { toggleFollowingProcess } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
 import { usersAPI } from "../../api/api";
@@ -15,11 +16,6 @@ import { usersAPI } from "../../api/api";
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.togglePreloader(true);
-    // axios
-    //   .get(
-    //     `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countUsersPerPage}`,
-    //     { withCredentials: true }
-    //   )
     usersAPI
       .getUsers(this.props.currentPage, this.props.countUsersPerPage)
       .then((data) => {
@@ -32,11 +28,6 @@ class UsersContainer extends React.Component {
   onPageChanged = (currentPage) => {
     this.props.setCurrentPage(currentPage);
     this.props.togglePreloader(true);
-    // axios
-    //   .get(
-    //     `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.countUsersPerPage}`,
-    //     { withCredentials: true }
-    //   )
     usersAPI
       .getUsers(currentPage, this.props.countUsersPerPage)
       .then((data) => {
@@ -57,6 +48,8 @@ class UsersContainer extends React.Component {
           unfollow={this.props.unfollow}
           follow={this.props.follow}
           currentPage={this.props.currentPage}
+          followingInProgress={this.props.followingInProgress}
+          toggleFollowingProcess={this.props.toggleFollowingProcess}
         />
       </>
     );
@@ -70,6 +63,7 @@ const mapStateToProps = (state) => {
     totalCount: state.usersPage.totalCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    followingInProgress: state.usersPage.followingInProgress,
   };
 };
 // const mapDispatchToProps = (dispatch) => {
@@ -101,6 +95,7 @@ const mapDispatchToProps = {
   setCurrentPage,
   setTotalUsersCount,
   togglePreloader,
+  toggleFollowingProcess,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
