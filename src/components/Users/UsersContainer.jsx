@@ -2,38 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   followAC as follow,
-  setCurrentPageAC as setCurrentPage,
-  setTotalUsersCountAC as setTotalUsersCount,
-  setUsersAC as setUsers,
-  togglePreloaderAC as togglePreloader,
+  getCurrentPageThunkCreator,
+  getUsersThunkCreator,
   unfollowAC as unfollow,
 } from "../../redux/usersReducer";
 import { toggleFollowingProcess } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
-import { usersAPI } from "../../api/api";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.togglePreloader(true);
-    usersAPI
-      .getUsers(this.props.currentPage, this.props.countUsersPerPage)
-      .then((data) => {
-        this.props.togglePreloader(false);
-        this.props.setUsers(data.items);
-        this.props.setTotalUsersCount(data.totalCount);
-      });
+    this.props.getUsers(this.props.currentPage, this.props.countUsersPerPage);
   }
 
   onPageChanged = (currentPage) => {
-    this.props.setCurrentPage(currentPage);
-    this.props.togglePreloader(true);
-    usersAPI
-      .getUsers(currentPage, this.props.countUsersPerPage)
-      .then((data) => {
-        this.props.togglePreloader(false);
-        this.props.setUsers(data.items);
-      });
+    this.props.getCurrentPage(currentPage, this.props.countUsersPerPage);
   };
 
   render() {
@@ -91,11 +74,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   follow,
   unfollow,
-  setUsers,
-  setCurrentPage,
-  setTotalUsersCount,
-  togglePreloader,
   toggleFollowingProcess,
+  getUsers: getUsersThunkCreator,
+  getCurrentPage: getCurrentPageThunkCreator,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

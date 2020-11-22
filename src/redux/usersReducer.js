@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
@@ -71,16 +73,16 @@ const usersReducer = (state = initialState, action) => {
 
 export const followAC = (userId) => ({ type: FOLLOW, userId });
 export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId });
-export const setUsersAC = (users) => ({ type: SET_USERS, users });
-export const setCurrentPageAC = (currentPage) => ({
+export const setUsers = (users) => ({ type: SET_USERS, users });
+export const setCurrentPage = (currentPage) => ({
   type: SET_CURRENT_PAGE,
   currentPage,
 });
-export const setTotalUsersCountAC = (totalCount) => ({
+export const setTotalUsersCount = (totalCount) => ({
   type: SET_TOTAL_USERS_COUNT,
   totalCount,
 });
-export const togglePreloaderAC = (isFetching) => ({
+export const togglePreloader = (isFetching) => ({
   type: TOGGLE_PRELOADER,
   isFetching,
 });
@@ -89,5 +91,27 @@ export const toggleFollowingProcess = (isFetching, userId) => ({
   isFetching,
   userId,
 });
+
+export const getUsersThunkCreator = (currentPage, countUsersPerPage) => {
+  return (dispatch) => {
+    dispatch(togglePreloader(true));
+    usersAPI.getUsers(currentPage, countUsersPerPage).then((data) => {
+      dispatch(togglePreloader(false));
+      dispatch(setUsers(data.items));
+      dispatch(setTotalUsersCount(data.totalCount));
+    });
+  };
+};
+
+export const getCurrentPageThunkCreator = (currentPage, countUsersPerPage) => {
+  return (dispatch) => {
+    dispatch(setCurrentPage(currentPage));
+    dispatch(togglePreloader(true));
+    usersAPI.getUsers(currentPage, countUsersPerPage).then((data) => {
+      dispatch(togglePreloader(false));
+      dispatch(setUsers(data.items));
+    });
+  };
+};
 
 export default usersReducer;
