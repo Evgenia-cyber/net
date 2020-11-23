@@ -1,3 +1,5 @@
+import { authAPI } from "../api/api";
+
 const SET_AUTH_USER_DATA = "SET_AUTH_USER_DATA";
 
 let initialState = {
@@ -24,5 +26,14 @@ export const setAuthUserData = (id, email, login) => ({
   type: SET_AUTH_USER_DATA,
   data: { id, email, login },
 });
+
+export const getAuthUserData = () => (dispatch) => {
+  authAPI.authMe().then((response) => {
+    if (response.data.resultCode === 0) {
+      let { id, email, login } = response.data.data; //деструктуризация - получаем из объекта его свойства в одноименные переменные
+      dispatch(setAuthUserData(id, email, login));
+    }
+  });
+};
 
 export default authReducer;

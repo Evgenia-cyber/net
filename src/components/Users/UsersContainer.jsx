@@ -1,12 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  followAC as follow,
+  follow,
   getCurrentPageThunkCreator,
   getUsersThunkCreator,
-  unfollowAC as unfollow,
+  unfollow,
 } from "../../redux/usersReducer";
-import { toggleFollowingProcess } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
 
@@ -32,7 +31,6 @@ class UsersContainer extends React.Component {
           follow={this.props.follow}
           currentPage={this.props.currentPage}
           followingInProgress={this.props.followingInProgress}
-          toggleFollowingProcess={this.props.toggleFollowingProcess}
         />
       </>
     );
@@ -74,7 +72,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   follow,
   unfollow,
-  toggleFollowingProcess,
+  // toggleFollowingProcess,
   getUsers: getUsersThunkCreator,
   getCurrentPage: getCurrentPageThunkCreator,
 };

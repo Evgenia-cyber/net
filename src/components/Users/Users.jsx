@@ -2,7 +2,6 @@ import React from "react";
 import s from "./Users.module.css";
 import userImg from "../../assets/images/user.jpg";
 import { NavLink } from "react-router-dom";
-import * as axios from "axios";
 
 const Users = (props) => {
   let pagesCount = Math.ceil(props.totalCount / props.countUsersPerPage);
@@ -53,23 +52,7 @@ const Users = (props) => {
                       (id) => id === u.id
                     )}
                     onClick={() => {
-                      props.toggleFollowingProcess(true, u.id);
-                      axios
-                        .delete(
-                          `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                          {
-                            withCredentials: true,
-                            headers: {
-                              "API-KEY": "24c00ec5-a9a5-48ae-9287-c12f189f91af",
-                            },
-                          }
-                        )
-                        .then((response) => {
-                          if (response.data.resultCode === 0) {
-                            props.unfollow(u.id);
-                          }
-                          props.toggleFollowingProcess(false, u.id);
-                        });
+                      props.unfollow(u.id);
                     }}
                   >
                     Отписаться
@@ -80,24 +63,7 @@ const Users = (props) => {
                       (id) => id === u.id
                     )}
                     onClick={() => {
-                      props.toggleFollowingProcess(true, u.id);
-                      axios
-                        .post(
-                          `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                          {},
-                          {
-                            withCredentials: true,
-                            headers: {
-                              "API-KEY": "24c00ec5-a9a5-48ae-9287-c12f189f91af",
-                            },
-                          }
-                        )
-                        .then((response) => {
-                          if (response.data.resultCode === 0) {
-                            props.follow(u.id);
-                          }
-                          props.toggleFollowingProcess(false, u.id);
-                        });
+                      props.follow(u.id);
                     }}
                   >
                     Подписаться

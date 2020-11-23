@@ -71,8 +71,8 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
-export const followAC = (userId) => ({ type: FOLLOW, userId });
-export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId });
+export const followSuccess = (userId) => ({ type: FOLLOW, userId });
+export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId });
 export const setUsers = (users) => ({ type: SET_USERS, users });
 export const setCurrentPage = (currentPage) => ({
   type: SET_CURRENT_PAGE,
@@ -112,6 +112,26 @@ export const getCurrentPageThunkCreator = (currentPage, countUsersPerPage) => {
       dispatch(setUsers(data.items));
     });
   };
+};
+
+export const follow = (userId) => (dispatch) => {
+  dispatch(toggleFollowingProcess(true, userId));
+  usersAPI.follow(userId).then((response) => {
+    if (response.data.resultCode === 0) {
+      dispatch(followSuccess(userId));
+    }
+    dispatch(toggleFollowingProcess(false, userId));
+  });
+};
+
+export const unfollow = (userId) => (dispatch) => {
+  dispatch(toggleFollowingProcess(true, userId));
+  usersAPI.unfollow(userId).then((response) => {
+    if (response.data.resultCode === 0) {
+      dispatch(unfollowSuccess(userId));
+    }
+    dispatch(toggleFollowingProcess(false, userId));
+  });
 };
 
 export default usersReducer;
