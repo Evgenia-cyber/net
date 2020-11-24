@@ -8,6 +8,7 @@ import Messages from "./Messages";
 let mapStateToProps = (state) => ({
   newTextareaText: state.messagePage.newTextareaText,
   state: state.messagePage,
+  isAuth: state.auth.isAuth
 });
 
 let mapDispatchToProps = (dispatch) => {
