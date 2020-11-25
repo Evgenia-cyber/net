@@ -1,5 +1,4 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import s from "./Messages.module.css";
 import MessageText from "./MessageText/MessageText";
 import MessageUser from "./MessageUser/MessageUser";
@@ -19,9 +18,6 @@ const Messages = (props) => {
   let clickHandler = () => {
     props.clickHandler();
   };
-  if (!props.isAuth) {
-    return <Redirect to="/login" />;
-  }
   return (
     <div>
       <div className={s.messages}>
