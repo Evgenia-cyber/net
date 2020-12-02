@@ -8,8 +8,7 @@ let initialState = {
   messages: [
     { id: 1, text: "Hello" },
     { id: 2, text: "Ok" },
-  ],
-  newTextareaText: " ",
+  ]
 };
 
 const messagesReducer = (state = initialState, action) => {
