@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Messages.module.css";
 import MessageText from "./MessageText/MessageText";
 import MessageUser from "./MessageUser/MessageUser";
+import NewMessage from "./NewMessage/NewMessage";
 
 const Messages = (props) => {
   let usersElements = props.state.users.map((user) => (
@@ -11,13 +12,13 @@ const Messages = (props) => {
     <MessageText key={message.id} text={message.text} />
   ));
 
-  let changeTextareaHandler = (event) => {
-    let text = event.target.value;
-    props.changeTextareaHandler(text);
-  };
-  let clickHandler = () => {
-    props.clickHandler();
-  };
+  // let changeTextareaHandler = (event) => {
+  //   let text = event.target.value;
+  //   props.changeTextareaHandler(text);
+  // };
+  // let clickHandler = () => {
+  //   props.clickHandler();
+  // };
   return (
     <div>
       <div className={s.messages}>
@@ -32,7 +33,7 @@ const Messages = (props) => {
         <MessageText text="Hello" /> */}
         </div>
       </div>
-      <div>
+      {/* <div>
         <textarea
           value={props.newTextareaText}
           onChange={changeTextareaHandler}
@@ -43,7 +44,8 @@ const Messages = (props) => {
         <button onClick={clickHandler} className={s.send_btn}>
           Отправить
         </button>
-      </div>
+      </div> */}
+      <NewMessage addNewMessage={props.addNewMessage} />
     </div>
   );
 };

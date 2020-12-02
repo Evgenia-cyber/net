@@ -2,8 +2,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import {
-  addNewMessageActionCreator,
-  changeMessageHandlerActionCreator,
+  addNewMessageActionCreator
 } from "../../redux/messagesReducer";
 import Messages from "./Messages";
 
@@ -14,11 +13,8 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    changeTextareaHandler: (text) => {
-      dispatch(changeMessageHandlerActionCreator(text));
-    },
-    clickHandler: () => {
-      dispatch(addNewMessageActionCreator());
+    addNewMessage: (text) => {
+      dispatch(addNewMessageActionCreator(text));
     },
   };
 };
