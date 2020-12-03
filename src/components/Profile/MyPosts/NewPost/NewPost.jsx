@@ -11,7 +11,7 @@ const NewPostForm = (props) => {
       <form onSubmit={props.handleSubmit} className={s.new_post}>
         <Field
           validate={[required, maxLength15]}
-          fieldType="textarea"
+          fieldtype="textarea"
           component={FormControl}
           name="newPost"
           className={s.send_text}
