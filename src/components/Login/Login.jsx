@@ -5,6 +5,7 @@ import { required } from "../../utils/validators/validators";
 import { FormControl } from "../common/FormControls/FormControls";
 import { login } from "../../redux/authReducer";
 import { Redirect } from "react-router-dom";
+import s from "./Login.module.css";
 
 const LoginForm = (props) => {
   return (
@@ -42,6 +43,7 @@ const LoginForm = (props) => {
           запомнить меня
         </label>
         <br />
+        {props.error && <div className={s.formError}>{props.error}</div>}
         <button>Войти</button>
       </form>
     </div>
