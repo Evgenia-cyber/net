@@ -8,6 +8,7 @@ import {
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
+import { getCountUsersPerPage, getCurrentPage, getFollowingInProgress, getIsFetching, getTotalCount, getUsers } from "../../redux/usersSelectors";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -36,17 +37,28 @@ class UsersContainer extends React.Component {
     );
   }
 }
-
+//*********************************** */
+// const mapStateToProps = (state) => {
+//   return {
+//     users: state.usersPage.users,
+//     countUsersPerPage: state.usersPage.countUsersPerPage,
+//     totalCount: state.usersPage.totalCount,
+//     currentPage: state.usersPage.currentPage,
+//     isFetching: state.usersPage.isFetching,
+//     followingInProgress: state.usersPage.followingInProgress,
+//   };
+// };
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    countUsersPerPage: state.usersPage.countUsersPerPage,
-    totalCount: state.usersPage.totalCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    followingInProgress: state.usersPage.followingInProgress,
+    users: getUsers,
+    countUsersPerPage: getCountUsersPerPage,
+    totalCount: getTotalCount,
+    currentPage: getCurrentPage,
+    isFetching: getIsFetching,
+    followingInProgress: getFollowingInProgress,
   };
 };
+//*********************************** */
 // const mapDispatchToProps = (dispatch) => {
 //   return {
 //     follow: (userId) => {
