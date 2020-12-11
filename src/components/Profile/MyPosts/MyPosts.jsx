@@ -4,14 +4,16 @@ import NewPost from "./NewPost/NewPost";
 import Post from "./Post/Post";
 
 const MyPosts = React.memo((props) => {
-  let postsElements = props.posts.map((post) => (
-    <Post
-      key={post.id}
-      message={post.message}
-      img={post.img}
-      likesCount={post.likesCount}
-    />
-  ));
+  let postsElements = props.posts
+    .map((post) => (
+      <Post
+        key={post.id}
+        message={post.message}
+        img={post.img}
+        likesCount={post.likesCount}
+      />
+    ))
+    .reverse();
 
   return (
     <div className={s.my_posts}>
