@@ -44,12 +44,4 @@
   margin: 25px 150px;
   min-height: 50px;
 }
-.pagination {
-  margin: 1.6rem;
-}
-.pagination button {
-  font-weight: 900;
-}
-.pagination button.selected {
-  color: rgb(204, 40, 40);
-}
+
