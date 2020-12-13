@@ -1,12 +1,12 @@
 import { usersAPI } from "../api/api";
 
-const FOLLOW = "FOLLOW";
-const UNFOLLOW = "UNFOLLOW";
-const SET_USERS = "SET_USERS";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
-const TOGGLE_PRELOADER = "TOGGLE_PRELOADER";
-const TOGGLE_IS_FOLLOWING_PROCESS = "TOGGLE_IS_FOLLOWING_PROCESS";
+const FOLLOW = "my-app/users/FOLLOW";
+const UNFOLLOW = "my-app/users/UNFOLLOW";
+const SET_USERS = "my-app/users/SET_USERS";
+const SET_CURRENT_PAGE = "my-app/users/SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "my-app/users/SET_TOTAL_USERS_COUNT";
+const TOGGLE_PRELOADER = "my-app/users/TOGGLE_PRELOADER";
+const TOGGLE_IS_FOLLOWING_PROCESS = "my-app/users/TOGGLE_IS_FOLLOWING_PROCESS";
 
 let initialState = {
   users: [],
@@ -93,45 +93,41 @@ export const toggleFollowingProcess = (isFetching, userId) => ({
 });
 
 export const getUsersThunkCreator = (currentPage, countUsersPerPage) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(togglePreloader(true));
-    usersAPI.getUsers(currentPage, countUsersPerPage).then((data) => {
+    let data = await usersAPI.getUsers(currentPage, countUsersPerPage);
       dispatch(togglePreloader(false));
       dispatch(setUsers(data.items));
       dispatch(setTotalUsersCount(data.totalCount));
-    });
   };
 };
 
 export const getCurrentPageThunkCreator = (currentPage, countUsersPerPage) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setCurrentPage(currentPage));
     dispatch(togglePreloader(true));
-    usersAPI.getUsers(currentPage, countUsersPerPage).then((data) => {
+    let data = await usersAPI.getUsers(currentPage, countUsersPerPage);
       dispatch(togglePreloader(false));
       dispatch(setUsers(data.items));
-    });
   };
 };
 
-export const follow = (userId) => (dispatch) => {
+export const follow = (userId) => async (dispatch) => {
   dispatch(toggleFollowingProcess(true, userId));
-  usersAPI.follow(userId).then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(followSuccess(userId));
-    }
-    dispatch(toggleFollowingProcess(false, userId));
-  });
+  let response = await usersAPI.follow(userId);
+  if (response.data.resultCode === 0) {
+    dispatch(followSuccess(userId));
+  }
+  dispatch(toggleFollowingProcess(false, userId));
 };
 
-export const unfollow = (userId) => (dispatch) => {
+export const unfollow = (userId) => async (dispatch) => {
   dispatch(toggleFollowingProcess(true, userId));
-  usersAPI.unfollow(userId).then((response) => {
-    if (response.data.resultCode === 0) {
-      dispatch(unfollowSuccess(userId));
-    }
-    dispatch(toggleFollowingProcess(false, userId));
-  });
+  let response = await usersAPI.unfollow(userId);
+  if (response.data.resultCode === 0) {
+    dispatch(unfollowSuccess(userId));
+  }
+  dispatch(toggleFollowingProcess(false, userId));
 };
 
 export default usersReducer;
