@@ -1,32 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./Paginator.module.css";
 
-const Paginator = ({totalCount,countUsersPerPage,currentPage,onPageChanged})=>{
-   let pagesCount = Math.ceil(totalCount / countUsersPerPage);
-   let pages = [];
-   // for (let i = 0; i < pagesCount; i++) {
-   for (let i = 0; i < 28; i++) {
-     //т.к. слишком много пользователей
-     pages[i] = i + 1;
-   }
-   // for (let i = 1; i <= pagesCount; i++) {
-   //   pages.push(i);
-   // }
-   return (
-       <div className={s.pagination}>
-         {pages.map((p) => {
-           return (
-             <button
-               onClick={() => {
-               onPageChanged(p);
-               }}
-               key={p}
-               className={currentPage === p ? s.selected : undefined}
-             >
-               {p}
-             </button>
-           );
-         })}
-       </div>);
-}
+const Paginator = ({
+  totalCount,
+  countItemsPerPage,
+  currentPage,
+  onPageChanged,
+  portionSize = 15,
+}) => {
+  let pagesCount = Math.ceil(totalCount / countItemsPerPage);
+  let pages = [];
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(i);
+  }
+
+  const portionCount = Math.ceil(pagesCount / portionSize);
+
+  const [portionNumber, setPortionNumber] = useState(1);
+  const leftPageNumber = (portionNumber - 1) * portionSize + 1;
+  const rightPageNumber = portionNumber * portionSize;
+
+  return (
+    <div className={s.pagination}>
+      {portionNumber > 1 && (
+        <button
+          onClick={() => {
+            setPortionNumber(portionNumber - 1);
+          }}
+        >
+          PREV
+        </button>
+      )}
+      {pages
+        .filter((p) => {
+          return p >= leftPageNumber && p <= rightPageNumber;
+        })
+        .map((p) => {
+          return (
+            <button
+              onClick={() => {
+                onPageChanged(p);
+              }}
+              key={p}
+              className={currentPage === p ? s.selected : undefined}
+            >
+              {p}
+            </button>
+          );
+        })}
+      {portionNumber < portionCount && (
+        <button
+          onClick={() => {
+            setPortionNumber(portionNumber + 1);
+          }}
+        >
+          NEXT
+        </button>
+      )}
+    </div>
+  );
+};
 export default Paginator;

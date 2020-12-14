@@ -1,5 +1,6 @@
 .pagination {
   margin: 1.6rem;
+  text-align: center;
 }
 .pagination button {
   font-weight: 900;
