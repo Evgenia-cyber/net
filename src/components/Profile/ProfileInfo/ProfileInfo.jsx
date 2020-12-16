@@ -2,6 +2,7 @@ import React from "react";
 import Preloader from "../../common/preloader/Preloader";
 import s from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus";
+import userPhoto from "../../../assets/images/user.jpg"
 
 const ProfileInfo = (props) => {
   if (!props.profile) return <Preloader />;
@@ -10,11 +11,10 @@ const ProfileInfo = (props) => {
       <div className={s.info}>
         <div className={s.infoImg}>
           <img
-            //  src="https://hypeava.ru/uploads/posts/2018-03/1521909692_4.jpg"
             src={
               props.profile.photos.large
                 ? props.profile.photos.large
-                : "https://hypeava.ru/uploads/posts/2018-03/1521909692_4.jpg"
+                : userPhoto
             }
             alt=""
           />
