@@ -6,6 +6,7 @@ import {
   updateUserStatus,
   getUserStatus,
   savePhoto,
+  saveProfile
 } from "../../redux/profileReducer";
 import { withRouter } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
@@ -46,6 +47,7 @@ let mapDispatchToProps = {
   getUserStatus,
   updateUserStatus,
   savePhoto,
+  saveProfile
 };
 
 export default compose(

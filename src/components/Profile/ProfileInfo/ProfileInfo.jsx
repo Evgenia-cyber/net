@@ -3,7 +3,7 @@ import Preloader from "../../common/preloader/Preloader";
 import s from "./ProfileInfo.module.css";
 import ProfileStatus from "./ProfileStatus";
 import userPhoto from "../../../assets/images/user.jpg";
-import ProfileDataForm from "./ProfileDataForm";
+import ProfileDataFormReduxForm from "./ProfileDataForm";
 
 const ProfileInfo = (props) => {
   const [editMode, setEditMode] = useState(false);
@@ -14,6 +14,11 @@ const ProfileInfo = (props) => {
       props.savePhoto(e.target.files[0]);
     }
   };
+
+  const submit = (formData) => {
+    props.saveProfile(formData).then(()=>{ setEditMode(false);});
+  };
+
   return (
     <div className={s.info}>
       <div className={s.infoImg}>
@@ -26,12 +31,11 @@ const ProfileInfo = (props) => {
         {props.isOwner && <input type="file" onChange={onSelectedPhoto} />}
       </div>
       {editMode ? (
-        <ProfileDataForm
+        <ProfileDataFormReduxForm
+          initialValues={props.profile}
+          onSubmit={submit}
           profile={props.profile}
           isOwner={props.isOwner}
-          deactivateEditMode={() => {
-            setEditMode(false);
-          }}
         />
       ) : (
         <ProfileData
@@ -73,7 +77,7 @@ const ProfileData = ({ profile, isOwner, activateEditMode }) => {
         <b>Имя</b>: {profile.fullName}
       </div>
       <div>
-        <b>Ищу работу</b>: {profile.lookingForAJob}
+        <b>Ищу работу</b>: {profile.lookingForAJob ? "да" : "нет"}
       </div>
       {profile.lookingForAJob && (
         <div>

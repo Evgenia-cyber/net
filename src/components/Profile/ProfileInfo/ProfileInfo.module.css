@@ -8,3 +8,7 @@
  .contacts{
    padding-left: 2rem;
  }
+ .formError{
+   color: red;
+   border: 1px solid red;
+ }
