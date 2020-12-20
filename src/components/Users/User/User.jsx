@@ -2,10 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./User.module.css";
 import userImg from "../../../assets/images/user.jpg";
+import cn from "classnames";
 
 const User = ({user,followingInProgress, unfollow,follow})=>{
 return (
-   <div className={s.row + " " + s.border}>
+   <div className={cn(s.row , s.border)}>
    <div className={s.one}>
      <div className={s.img}>
        <NavLink to={"/profile/" + user.id}>
@@ -44,14 +45,14 @@ return (
    </div>
    <div className={s.three}>
      <div>
-       <div className={s.row + " " + s.info}>
+       <div className={cn(s.row , s.info)}>
          <div className={s.infoName}>{user.name}</div>
          <div>
            <span>{'user.location.country + " "'}</span>
            <span>{"user.location.city"}</span>
          </div>
        </div>
-       <div className={s.row + " " + s.infoStatus}>
+       <div className={cn(s.row , s.infoStatus)}>
          <div>{user.status}</div>
        </div>
      </div>
