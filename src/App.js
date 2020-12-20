@@ -2,7 +2,6 @@ import React from "react";
 import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 
 import { connect } from "react-redux";
@@ -11,6 +10,9 @@ import { compose } from "redux";
 import Preloader from "./components/common/preloader/Preloader";
 import { Suspense } from "react";
 
+const ProfileContainer = React.lazy(() =>
+  import("./components/Profile/ProfileContainer")
+);
 const Login = React.lazy(() => import("./components/Login/Login"));
 const MessagesContainer = React.lazy(() =>
   import("./components/Messages/MessagesContainer")
@@ -33,7 +35,6 @@ class App extends React.Component {
         <HeaderContainer />
         <Sidebar />
         <div className="content">
-          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
           <Suspense
             fallback={
               <div>
@@ -46,6 +47,10 @@ class App extends React.Component {
                 exact
                 path="/"
                 render={() => <Redirect from="/" to="/profile" />}
+              />
+              <Route
+                path="/profile/:userId?"
+                render={() => <ProfileContainer />}
               />
               <Route path="/login" render={() => <Login />} />
               <Route path="/messages" render={() => <MessagesContainer />} />
