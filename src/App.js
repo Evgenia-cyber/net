@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -11,10 +11,14 @@ import { compose } from "redux";
 import Preloader from "./components/common/preloader/Preloader";
 import { Suspense } from "react";
 
-const Login = React.lazy(() => import('./components/Login/Login'));
-const MessagesContainer = React.lazy(() => import('./components/Messages/MessagesContainer'));
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
-const News = React.lazy(() => import('./components/News/News'));
+const Login = React.lazy(() => import("./components/Login/Login"));
+const MessagesContainer = React.lazy(() =>
+  import("./components/Messages/MessagesContainer")
+);
+const UsersContainer = React.lazy(() =>
+  import("./components/Users/UsersContainer")
+);
+const News = React.lazy(() => import("./components/News/News"));
 
 class App extends React.Component {
   componentDidMount() {
@@ -29,17 +33,27 @@ class App extends React.Component {
         <HeaderContainer />
         <Sidebar />
         <div className="content">
-          {/* <Route path='/profile' component={Profile}/>
-        <Route path='/messages' component={Messages}/> */}
           <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-          <Suspense fallback={<div><Preloader/></div>}>
-      <Switch>
-          <Route path="/login" render={() => <Login />} />
-          <Route path="/messages" render={() => <MessagesContainer />} />
-          <Route path="/users" render={() => <UsersContainer />} />
-          <Route path="/news" render={() => <News />} />
-          </Switch>
-    </Suspense>
+          <Suspense
+            fallback={
+              <div>
+                <Preloader />
+              </div>
+            }
+          >
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => <Redirect from="/" to="/profile" />}
+              />
+              <Route path="/login" render={() => <Login />} />
+              <Route path="/messages" render={() => <MessagesContainer />} />
+              <Route path="/users" render={() => <UsersContainer />} />
+              <Route path="/news" render={() => <News />} />
+              <Route path="*" render={() => <div>404</div>} />
+            </Switch>
+          </Suspense>
         </div>
       </div>
     );
