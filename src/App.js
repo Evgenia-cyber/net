@@ -23,8 +23,15 @@ const UsersContainer = React.lazy(() =>
 const News = React.lazy(() => import("./components/News/News"));
 
 class App extends React.Component {
+  catchAllUnhandleErrors = (promiseRejectionEvent)=>{
+    alert("Some error");
+  }
   componentDidMount() {
     this.props.initializeApp();
+    window.addEventListener("unhandledrejection", this.catchAllUnhandleErrors);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("unhandledrejection", this.catchAllUnhandleErrors);
   }
   render() {
     if (!this.props.initialized) {
